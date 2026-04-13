@@ -50,7 +50,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	http.ServeFile(w, r, "templates/index.html")
+	http.ServeFile(w, r, "static/index.html")
 }
 func asciiHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {

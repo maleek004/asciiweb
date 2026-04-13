@@ -1,0 +1,10 @@
+.container {
+    max-width: 800px;
+    /* limits how wide the div can grow */
+    margin: 0 auto;
+    /* centers it horizontally */
+    padding: 20px;
+    /* adds space inside the div */
+    width: 90%;
+    /* ensures small screens still have spacing */
+}
