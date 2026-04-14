@@ -1,10 +1,119 @@
+/* Reset some default browser styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main container (card) */
 .container {
-    max-width: 800px;
-    /* limits how wide the div can grow */
-    margin: 0 auto;
-    /* centers it horizontally */
-    padding: 20px;
-    /* adds space inside the div */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 90%;
-    /* ensures small screens still have spacing */
+    max-width: 600px;
+
+    background-color: #ffffff;
+    padding: 30px;
+
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    /*padding: 12px;*/
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 14px;
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Placeholder styling */
+textarea::placeholder {
+    color: #999;
+}
+
+/* Focus state */
+textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* label */
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Select dropdown */
+select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Focus state for select */
+select:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+/* Button */
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+
+    background-color: #4a90e2;
+    color: white;
+
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover state */
+button:hover {
+    background-color: #357abd;
+}
+
+/* Disabled state */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Small screen adjustments */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
 }

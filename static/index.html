@@ -7,19 +7,20 @@
 </head>
 
 <body>
-    <div class="container"></div>
-    <h1> ASCII Art Generator</h1>
-    <form method="POST" action="/ascii-art">
-        <textarea name="text" placeholder="Enter text" rows="5" cols="40"></textarea>
-        <label for="font">Choose font:</label>
-        <select name="font" id="font">
-            <option value="standard.txt">Standard</option>
-            <option value="shadow.txt">Shadow</option>
-            <option value="thinkertoy.txt">Thinkertoy</option>
-        </select>
-        <button type="submit">Generate</button>
+    <div class="container">
+        <h1> ASCII Art Generator</h1>
+        <form method="POST" action="/ascii-art">
+            <textarea name="text" placeholder="Enter text" rows="5" cols="40"></textarea>
+            <label for="font">Choose font:</label>
+            <select name="font" id="font">
+                <option value="standard.txt">Standard</option>
+                <option value="shadow.txt">Shadow</option>
+                <option value="thinkertoy.txt">Thinkertoy</option>
+                <option value="thinkertoy.txt">WrongBanner</option>
+            </select>
+            <button type="submit">Generate</button>
 
-    </form>
+        </form>
     </div>
 </body>
 

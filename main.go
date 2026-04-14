@@ -104,5 +104,9 @@ func main() {
 	fmt.Println("http://localhost:8080")
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/ascii-art", asciiHandler)
-	http.ListenAndServe(":8080", nil)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Println("Server failed:", err)
+	}
 }
