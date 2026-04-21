@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ASCII Art</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1> ASCII Art Generator</h1>
+        <form id="ascii-form" method="POST" action="/ascii-art">
+            <textarea name="text" placeholder="Enter text" rows="5" cols="40"></textarea>
+            <label for="font">Choose font:</label>
+            <select name="font" id="font">
+                <option value="standard.txt">Standard</option>
+                <option value="shadow.txt">Shadow</option>
+                <option value="thinkertoy.txt">Thinkertoy</option>
+                <option value="wrongbanner.txt">WrongBanner</option>
+            </select>
+            <button type="submit">Generate</button>
+
+        </form>
+        <div id="output"></div>
+    </div>
+
+    <div class="signature">
+        <a href="https://mubaraqmaleek.com" target="_blank">
+            made by Maleek 😎
+        </a>
+    </div>
+
+    <script>
+        const form = document.getElementById("ascii-form");
+        const textarea = document.querySelector("textarea");
+        const output = document.getElementById("output");
+        const button = form.querySelector("button");
+
+        // Ctrl + Enter submit
+        textarea.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && event.key === "Enter") {
+                if (textarea.value.trim() === "") {
+                    alert("Please enter some text first.");
+                    return;
+                }
+                form.dispatchEvent(new Event("submit"));
+            }
+        });
+
+        // AJAX form submission
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            output.innerText = "Generating...";
+            button.disabled = true;
+
+            try {
+                const response = await fetch("/ascii-art", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    output.innerText = "Error: " + errorText;
+                    button.disabled = false;
+                    return;
+                }
+
+                const text = await response.text();
+                output.innerText = text;
+
+            } catch (error) {
+                output.innerText = "Network error.";
+            }
+
+            button.disabled = false;
+        });
+    </script>
+</body>
+
+</html>
