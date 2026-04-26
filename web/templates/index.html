@@ -1,40 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>ASCII Art</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Generator</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1> ASCII Art Generator</h1>
+        <h1>ASCII Art Generator</h1>
         <form id="ascii-form" method="POST" action="/ascii-art">
-            <textarea name="text" placeholder="Enter text" rows="5" cols="40"></textarea>
-            <label for="font">Choose font:</label>
-            <select name="font" id="font">
-                <option value="standard.txt">Standard</option>
-                <option value="shadow.txt">Shadow</option>
-                <option value="thinkertoy.txt">Thinkertoy</option>
-                <option value="wrongbanner.txt">WrongBanner</option>
-            </select>
-            <button type="submit">Generate</button>
-
+            <label for="text-input" class="visually-hidden">Text to convert</label>
+            <textarea id="text-input" name="text" placeholder="Type something cool..." rows="4" cols="40"></textarea>
+            
+            <div class="controls">
+                <label for="font">Choose typography:</label>
+                <div class="select-container">
+                    <select name="font" id="font">
+                        <option value="standard.txt">Standard</option>
+                        <option value="shadow.txt">Shadow</option>
+                        <option value="thinkertoy.txt">Thinkertoy</option>
+                        <option value="wrongbanner.txt">WrongBanner</option>
+                    </select>
+                    <div class="chevron-down"></div>
+                </div>
+            </div>
+            
+            <button type="submit" id="generate-btn">
+                <span>Generate Art</span>
+                <div class="loader" id="btn-loader"></div>
+            </button>
         </form>
         <div id="output"></div>
     </div>
 
-    <div class="signature">
+    <footer class="signature">
         <a href="https://mubaraqmaleek.com" target="_blank">
             made by Maleek 😎
         </a>
-    </div>
+    </footer>
 
     <script>
         const form = document.getElementById("ascii-form");
-        const textarea = document.querySelector("textarea");
+        const textarea = document.getElementById("text-input");
         const output = document.getElementById("output");
-        const button = form.querySelector("button");
+        const button = document.getElementById("generate-btn");
 
         // Ctrl + Enter submit
         textarea.addEventListener("keydown", function (event) {
@@ -51,9 +67,18 @@
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
+            if (textarea.value.trim() === "") {
+                alert("Please enter some text first.");
+                textarea.focus();
+                return;
+            }
+
             const formData = new FormData(form);
 
-            output.innerText = "Generating...";
+            // Set loading states
+            output.classList.add("loading");
+            output.innerText = "Processing ASCII art...";
+            button.classList.add("is-loading");
             button.disabled = true;
 
             try {
@@ -65,18 +90,31 @@
                 if (!response.ok) {
                     const errorText = await response.text();
                     output.innerText = "Error: " + errorText;
+                    output.classList.remove("loading");
+                    button.classList.remove("is-loading");
                     button.disabled = false;
                     return;
                 }
 
                 const text = await response.text();
                 output.innerText = text;
+                output.classList.remove("loading");
 
             } catch (error) {
-                output.innerText = "Network error.";
+                output.innerText = "Network error occurred.";
+                output.classList.remove("loading");
             }
 
+            // Remove loading state on button
+            button.classList.remove("is-loading");
             button.disabled = false;
+            
+            // Auto scroll to output on mobile to see result immediately
+            if (window.innerWidth <= 480) {
+                setTimeout(() => {
+                    output.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                }, 100);
+            }
         });
     </script>
 </body>
