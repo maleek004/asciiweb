@@ -8,7 +8,9 @@
     <!-- Modern Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 
@@ -17,8 +19,8 @@
         <h1>ASCII Art Generator</h1>
         <form id="ascii-form" method="POST" action="/ascii-art">
             <label for="text-input" class="visually-hidden">Text to convert</label>
-            <textarea id="text-input" name="text" placeholder="Type something cool..." rows="4" cols="40"></textarea>
-            
+            <textarea id="text-input" name="text" placeholder="Type something cool ..." rows="4" cols="40"></textarea>
+
             <div class="controls">
                 <label for="font">Choose typography:</label>
                 <div class="select-container">
@@ -31,7 +33,7 @@
                     <div class="chevron-down"></div>
                 </div>
             </div>
-            
+
             <button type="submit" id="generate-btn">
                 <span>Generate Art</span>
                 <div class="loader" id="btn-loader"></div>
@@ -108,7 +110,7 @@
             // Remove loading state on button
             button.classList.remove("is-loading");
             button.disabled = false;
-            
+
             // Auto scroll to output on mobile to see result immediately
             if (window.innerWidth <= 480) {
                 setTimeout(() => {

@@ -12,19 +12,18 @@ func getStart(r rune) int {
 
 func Reader(text string, font string) (string, error) {
 	separator := "\n"
-	if font == "thinkertoy.txt" {
-		separator = "\r\n"
-	}
 
 	// Build the full path to the font file inside "fonts/" folder
 	fontPath := "fonts/" + font
 
-	content, err := os.ReadFile(fontPath)
+	fontBytes, err := os.ReadFile(fontPath)
 	if err != nil {
 		return "", fmt.Errorf("Error reading the file '%s', kindly select another font", font)
 	}
 
-	arts := strings.Split(string(content), separator)
+	fontStr := strings.ReplaceAll(string(fontBytes), "\r\n", "\n")
+
+	fontSlice := strings.Split(fontStr, separator)
 	words := strings.Split(text, "\r\n")
 	var result strings.Builder
 
@@ -45,7 +44,7 @@ func Reader(text string, font string) (string, error) {
 
 		for i := 0; i < 8; i++ {
 			for _, start := range starts {
-				result.WriteString(arts[start+i])
+				result.WriteString(fontSlice[start+i])
 			}
 			result.WriteString("\n")
 		}
